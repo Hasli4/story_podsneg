@@ -85,7 +85,8 @@ for (const [, attribute, resource] of novelPage.matchAll(/\b(src|href)=["']([^"'
     }
 }
 
-if (!rootPage.includes(`./${gameDirectory}/`)) missing.push(`index.html redirect to ${gameDirectory}/`);
+if (!rootPage.includes(`src="./${gameDirectory}/"`)) missing.push(`index.html game frame for ${gameDirectory}/`);
+if (!rootPage.includes("https://hasli4.github.io/story_podsneg/")) missing.push("canonical GitHub Pages URL metadata");
 if (!novelPage.includes("try{") || !novelPage.includes("require('./tyrano/libs/jquery-3.6.0.min.js')")) {
     missing.push("standard Tyrano browser entry point");
 }

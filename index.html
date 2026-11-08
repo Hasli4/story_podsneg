@@ -4,25 +4,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#003b45" />
-    <meta http-equiv="refresh" content="0; url=./Podsneg_HTML/" />
+    <meta name="description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content="https://hasli4.github.io/story_podsneg/" />
+    <meta property="og:title" content="Подснежник — интерактивная визуальная новелла" />
+    <meta property="og:description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
+    <meta property="og:image" content="https://hasli4.github.io/story_podsneg/Podsneg_HTML/data/bgimage/огонек.png" />
+    <meta property="og:image:alt" content="Бойцы отряда собрались вокруг тёплого огонька" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Подснежник — интерактивная визуальная новелла" />
+    <meta name="twitter:description" content="Утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
+    <meta name="twitter:image" content="https://hasli4.github.io/story_podsneg/Podsneg_HTML/data/bgimage/огонек.png" />
     <title>Подснежник — визуальная новелла</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <style>
       :root { color-scheme: dark; }
-      body {
-        align-items: center;
-        background: #002f38;
-        color: #fff;
-        display: flex;
-        font: 500 18px/1.5 Georgia, serif;
-        justify-content: center;
+      html, body {
         margin: 0;
         min-height: 100vh;
-        text-align: center;
       }
-      a { color: #fff; }
+      body { background: #000; overflow: hidden; }
+      .game-frame {
+        border: 0;
+        display: block;
+        height: 100vh;
+        height: 100dvh;
+        width: 100vw;
+      }
     </style>
   </head>
   <body>
-    <p>Открываем новеллу… <a href="./Podsneg_HTML/">Открыть вручную</a></p>
+    <iframe
+      class="game-frame"
+      src="./Podsneg_HTML/"
+      title="Подснежник — визуальная новелла"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+    ></iframe>
   </body>
 </html>
