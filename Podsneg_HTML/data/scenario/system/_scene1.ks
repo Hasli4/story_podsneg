@@ -1,0 +1,6 @@
+[preload  storage="./data/bgimage/начало.png"  ]
+[preload  storage="./data/bgimage/столовая_светится_темнее.png"  ]
+[preload  storage="./data/fgimage/chara/2/темная_светится.png"  ]
+[preload  storage="./data/fgimage/chara/2/светится.png"  ]
+[preload  storage="./data/bgimage/столовая_темнее.png"  ]
+[return]

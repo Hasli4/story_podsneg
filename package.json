@@ -1,0 +1,10 @@
+{
+  "name": "podsneg-web-novel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static GitHub Pages build for the visual novel «Подснежник».",
+  "scripts": {
+    "serve": "node tools/serve.mjs",
+    "check": "node tools/check-web-build.mjs"
+  }
+}

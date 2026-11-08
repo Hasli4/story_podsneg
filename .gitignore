@@ -1,0 +1,9 @@
+# Desktop package and editable source materials are not needed for GitHub Pages.
+Podsneg-win32-x64/
+новелла/
+Podsneg/
+
+# Local editor and operating-system files.
+.DS_Store
+Thumbs.db
+node_modules/
