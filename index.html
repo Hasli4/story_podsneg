@@ -1,93 +1,153 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#003b45" />
-    <meta name="description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ru_RU" />
-    <meta property="og:url" content="https://hasli4.github.io/story_podsneg/" />
-    <meta property="og:title" content="Подснежник — интерактивная визуальная новелла" />
-    <meta property="og:description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
-    <meta property="og:image" content="https://hasli4.github.io/story_podsneg/Podsneg_HTML/data/bgimage/огонек.png" />
-    <meta property="og:image:alt" content="Бойцы отряда собрались вокруг тёплого огонька" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Подснежник — интерактивная визуальная новелла" />
-    <meta name="twitter:description" content="Утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
-    <meta name="twitter:image" content="https://hasli4.github.io/story_podsneg/Podsneg_HTML/data/bgimage/огонек.png" />
-    <title>Подснежник — визуальная новелла</title>
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <style>
-      :root { color-scheme: dark; }
-      html, body {
-        margin: 0;
-        min-height: 100vh;
-      }
-      body { background: #000; overflow: hidden; }
-      .game-frame {
-        border: 0;
-        display: block;
-        height: 100vh;
-        height: 100dvh;
-        width: 100vw;
-      }
-      .loading-screen {
-        align-items: center;
-        background:
-          radial-gradient(circle at 50% 42%, rgba(255, 191, 77, .28), transparent 19rem),
-          linear-gradient(145deg, #002c36, #021419 68%);
-        color: #f7fbf8;
-        display: flex;
-        flex-direction: column;
-        inset: 0;
-        justify-content: center;
-        opacity: 1;
-        position: fixed;
-        text-align: center;
-        transition: opacity .45s ease, visibility .45s ease;
-        z-index: 2;
-      }
-      .loading-screen--hidden { opacity: 0; pointer-events: none; visibility: hidden; }
-      .loading-screen__snowdrop {
-        filter: drop-shadow(0 0 16px rgba(244, 255, 223, .5));
-        font: 4rem/1 Georgia, serif;
-      }
-      .loading-screen h1 { font: 400 clamp(2rem, 7vw, 3.8rem)/1 Georgia, serif; margin: .45rem 0; }
-      .loading-screen p { font: 400 1rem/1.5 Arial, sans-serif; margin: .25rem 1.5rem; max-width: 22rem; }
-      .loading-screen__help { display: none; margin-top: 1.25rem !important; }
-      .loading-screen__help a { color: #fff5c5; }
-    </style>
-  </head>
-  <body>
-    <div class="loading-screen" id="loading-screen" role="status" aria-live="polite">
-      <div class="loading-screen__snowdrop" aria-hidden="true">❄</div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
+  <meta name="theme-color" content="#003b45" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content="https://hasli4.github.io/story_podsneg/" />
+  <meta property="og:title" content="Подснежник — интерактивная визуальная новелла" />
+  <meta property="og:description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
+  <meta property="og:image" content="https://hasli4.github.io/story_podsneg/data/bgimage/огонек.png" />
+  <meta property="og:image:alt" content="Бойцы отряда собрались вокруг тёплого огонька" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Подснежник — интерактивная визуальная новелла" />
+  <meta name="twitter:description" content="Утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
+  <meta name="twitter:image" content="https://hasli4.github.io/story_podsneg/data/bgimage/огонек.png" />
+  <title>Подснежник — визуальная новелла</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+  <link href="./tyrano/tyrano.css" rel="stylesheet" />
+  <link href="./tyrano/libs/jquery-ui/jquery-ui.css" rel="stylesheet" />
+  <script src="./tyrano/libs/jquery-3.6.0.min.js"></script>
+  <script>try { window.jQuery = window.$ = require("./tyrano/libs/jquery-3.6.0.min.js"); } catch (error) {}</script>
+  <script src="./tyrano/libs/jquery-migrate-1.4.1.js"></script>
+  <script src="./tyrano/libs/jquery-ui/jquery-ui.min.js"></script>
+  <script src="./tyrano/libs/jquery.a3d.js"></script>
+  <script src="./tyrano/libs/jsrender.min.js"></script>
+  <link href="./tyrano/libs/alertify/alertify.core.css" rel="stylesheet" />
+  <link href="./tyrano/libs/alertify/alertify.default.css" rel="stylesheet" />
+  <script src="./tyrano/libs/alertify/alertify.min.js"></script>
+  <link href="./tyrano/libs/remodal/remodal.css" rel="stylesheet" />
+  <link href="./tyrano/libs/remodal/remodal-default-theme.css" rel="stylesheet" />
+  <script src="./tyrano/libs/remodal/remodal.js"></script>
+  <script src="./tyrano/libs/html2canvas.js"></script>
+  <script src="./data/system/KeyConfig.js"></script>
+  <script src="./tyrano/lang.js"></script>
+  <script src="./tyrano/libs.js"></script>
+  <script src="./tyrano/tyrano.js"></script>
+  <script src="./tyrano/tyrano.base.js"></script>
+  <script src="./tyrano/plugins/kag/kag.js"></script>
+  <script src="./tyrano/plugins/kag/kag.event.js"></script>
+  <script src="./tyrano/plugins/kag/kag.key_mouse.js"></script>
+  <script src="./tyrano/plugins/kag/kag.layer.js"></script>
+  <script src="./tyrano/plugins/kag/kag.menu.js"></script>
+  <script src="./tyrano/plugins/kag/kag.parser.js"></script>
+  <script src="./tyrano/plugins/kag/kag.rider.js"></script>
+  <script src="./tyrano/plugins/kag/kag.studio.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag_audio.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag_camera.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag_ext.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag_system.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag_vchat.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag_ar.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag_three.js"></script>
+  <script src="./tyrano/plugins/kag/kag.tag.js"></script>
+  <link href="./tyrano/libs/textillate/assets/animate.css" rel="stylesheet" />
+  <script src="./tyrano/libs/textillate/assets/jquery.lettering.js"></script>
+  <script src="./tyrano/libs/textillate/jquery.textillate.js"></script>
+  <script src="./tyrano/libs/jquery.touchSwipe.min.js"></script>
+  <script src="./tyrano/libs/howler.js"></script>
+  <script src="./tyrano/libs/jsQR.js"></script>
+  <script src="./tyrano/libs/lz-string.min.js"></script>
+  <style>
+    #loading-screen {
+      align-items: center;
+      background: linear-gradient(rgba(0, 25, 31, .24), rgba(0, 25, 31, .58)), url("./data/bgimage/главный_экранъ.png") center / cover;
+      color: #fff;
+      display: flex;
+      font-family: Arial, sans-serif;
+      inset: 0;
+      justify-content: center;
+      position: fixed;
+      text-align: center;
+      transition: opacity .38s ease, visibility .38s ease;
+      z-index: 2147483647;
+    }
+    #loading-screen.is-hidden { opacity: 0; pointer-events: none; visibility: hidden; }
+    .loading-card {
+      background: rgba(0, 42, 51, .83);
+      border: 1px solid rgba(255, 255, 255, .6);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .38);
+      box-sizing: border-box;
+      max-width: min(430px, calc(100vw - 40px));
+      padding: 30px 32px 27px;
+    }
+    .loading-card__mark { color: #e8ffff; font: 2.5rem/1 Georgia, serif; text-shadow: 0 0 20px #75e1e1; }
+    .loading-card h1 { font: 400 clamp(2rem, 7vw, 3.4rem)/1 Georgia, serif; margin: .45rem 0 .9rem; }
+    .loading-card p { font-size: 1rem; line-height: 1.45; margin: 0; }
+    .progress-track { background: rgba(255, 255, 255, .24); border-radius: 999px; height: 8px; margin: 22px 0 11px; overflow: hidden; }
+    .progress-value { background: linear-gradient(90deg, #8ee4e5, #fff0a9); border-radius: inherit; height: 100%; transition: width .3s ease; width: 8%; }
+    .loading-status { color: #d9f7f7; font-size: .85rem !important; min-height: 1.3em; }
+    .loading-help { display: none; font-size: .85rem !important; margin-top: 1rem !important; }
+    .loading-help button { background: transparent; border: 0; color: #fff0a9; cursor: pointer; font: inherit; padding: 0; text-decoration: underline; }
+  </style>
+</head>
+<body onselectstart="return false" oncontextmenu="return false" ontouchmove="event.preventDefault()">
+  <div id="loading-screen" role="status" aria-live="polite">
+    <div class="loading-card">
+      <div class="loading-card__mark" aria-hidden="true">❄</div>
       <h1>Подснежник</h1>
-      <p>Зажигаем огонёк и готовим историю…</p>
-      <p class="loading-screen__help" id="loading-help">
-        Загрузка занимает больше обычного. <a href="./Podsneg_HTML/">Открыть игру напрямую</a>
-      </p>
+      <p>Один день бойца начинается…</p>
+      <div class="progress-track" aria-hidden="true"><div class="progress-value" id="progress-value"></div></div>
+      <p class="loading-status" id="loading-status">Подготавливаем историю…</p>
+      <p class="loading-help" id="loading-help">Загрузка остановилась? <button type="button" id="reload-page">Обновить страницу</button></p>
     </div>
-    <iframe
-      id="game-frame"
-      class="game-frame"
-      src="./Podsneg_HTML/"
-      title="Подснежник — визуальная новелла"
-      allow="autoplay; fullscreen"
-      allowfullscreen
-    ></iframe>
-    <script>
-      (function () {
-        var splash = document.getElementById("loading-screen");
-        var help = document.getElementById("loading-help");
+  </div>
+  <div id="tyrano_base" class="tyrano_base" style="overflow:hidden" unselectable="on" ondragstart="return false"></div>
+  <div id="vchat_base" class="vchat_base" style="overflow:hidden" unselectable="on" ondragstart="return false"></div>
+  <div class="remodal-bg"></div>
+  <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking:false,closeOnEscape:false,closeOnOutsideClick:false">
+    <h1 class="remodal_title"></h1>
+    <p class="remodal_txt"></p><br />
+    <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+    <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+  </div>
+  <script>
+    (function () {
+      var screen = document.getElementById("loading-screen");
+      var value = document.getElementById("progress-value");
+      var status = document.getElementById("loading-status");
+      var help = document.getElementById("loading-help");
+      var current = 8;
+      var finished = false;
 
-        window.addEventListener("message", function (event) {
-          if (event.origin !== window.location.origin || !event.data || event.data.type !== "podsneg-title-ready") return;
-          splash.classList.add("loading-screen--hidden");
-        });
+      function setProgress(percent, message) {
+        current = Math.max(current, Math.min(percent, 100));
+        value.style.width = current + "%";
+        if (message) status.textContent = message;
+      }
+      function finish() {
+        if (finished) return;
+        finished = true;
+        setProgress(100, "Готово");
+        window.setTimeout(function () { screen.classList.add("is-hidden"); }, 220);
+      }
 
-        window.setTimeout(function () { help.style.display = "block"; }, 15000);
-      })();
-    </script>
-  </body>
+      document.addEventListener("DOMContentLoaded", function () { setProgress(40, "Собираем сцену…"); });
+      window.addEventListener("load", function () { setProgress(62, "Читаем сценарий…"); });
+      window.addEventListener("podsneg-title-ready", finish);
+      document.getElementById("reload-page").addEventListener("click", function () { window.location.reload(); });
+      window.setTimeout(function () { if (!finished) help.style.display = "block"; }, 15000);
+      if (window.jQuery) {
+        window.jQuery(document).ajaxStart(function () { setProgress(76, "Загружаем сценарий…"); });
+        window.jQuery(document).ajaxStop(function () { if (!finished) setProgress(90, "Почти готово…"); });
+      }
+      window.setInterval(function () { if (!finished && current < 94) setProgress(current + 1); }, 900);
+    })();
+  </script>
+</body>
 </html>
