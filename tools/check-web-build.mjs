@@ -6,6 +6,7 @@ const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const required = [
     ".nojekyll",
     "index.html",
+    "social-preview.jpg",
     "data/scenario/first.ks",
     "data/scenario/title_screen.ks",
     "data/scenario/system/_scene1.ks",
@@ -83,12 +84,14 @@ for (const [, attribute, resource] of novelPage.matchAll(/\b(src|href)=["']([^"'
 }
 
 if (!rootPage.includes("https://hasli4.github.io/story_podsneg/")) missing.push("canonical GitHub Pages URL metadata");
+if (!rootPage.includes("https://hasli4.github.io/story_podsneg/social-preview.jpg")) missing.push("Telegram-safe social preview image metadata");
 if (!rootPage.includes("progress-value")) missing.push("visible loading progress bar");
 if (!rootPage.includes("podsneg-title-ready")) missing.push("loading-to-title handoff");
 if (!rootPage.includes("enter-with-sound") || !rootPage.includes("PodsnegAudio")) missing.push("browser-safe title music control");
 if (!rootPage.includes("playbgm_fast")) missing.push("non-blocking story music tag");
 if (!rootPage.includes("orientation-notice") || !rootPage.includes("protectGameInput")) missing.push("mobile orientation and rapid-tap safeguards");
 if (!rootPage.includes("maximum-scale=1") || !rootPage.includes("syncVisualViewport")) missing.push("mobile viewport adaptation");
+if (!rootPage.includes("fullscreen-button") || !rootPage.includes("installFullscreenControl")) missing.push("full-screen control");
 if (!readFileSync(resolve(root, "data/scenario/title_screen.ks"), "utf8").includes("главный_экранъ.webp")) {
     missing.push("static title-screen fallback image");
 }
@@ -100,6 +103,7 @@ if (!novelPage.includes("require(\"./tyrano/libs/jquery-3.6.0.min.js\")")) {
     missing.push("standard Tyrano browser entry point");
 }
 if (!config.includes("projectID=Podsneg")) missing.push("Tyrano project configuration");
+if (!config.includes("System.title=Подснежник — визуальная новелла")) missing.push("browser tab title");
 
 if (missing.length) {
     console.error(`Web build check failed:\n- ${missing.join("\n- ")}`);

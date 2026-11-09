@@ -8,14 +8,20 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:url" content="https://hasli4.github.io/story_podsneg/" />
+  <meta property="og:site_name" content="Подснежник" />
   <meta property="og:title" content="Подснежник — интерактивная визуальная новелла" />
   <meta property="og:description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
-  <meta property="og:image" content="https://hasli4.github.io/story_podsneg/data/bgimage/огонек.png" />
+  <meta property="og:image" content="https://hasli4.github.io/story_podsneg/social-preview.jpg" />
+  <meta property="og:image:secure_url" content="https://hasli4.github.io/story_podsneg/social-preview.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Бойцы отряда собрались вокруг тёплого огонька" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Подснежник — интерактивная визуальная новелла" />
   <meta name="twitter:description" content="Утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
-  <meta name="twitter:image" content="https://hasli4.github.io/story_podsneg/data/bgimage/огонек.png" />
+  <meta name="twitter:image" content="https://hasli4.github.io/story_podsneg/social-preview.jpg" />
+  <meta name="twitter:image:alt" content="Бойцы отряда собрались вокруг тёплого огонька" />
   <title>Подснежник — визуальная новелла</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 
@@ -165,6 +171,43 @@
       margin-top: 1.25rem;
       padding: .62rem .9rem;
     }
+    #fullscreen-control {
+      align-items: center;
+      display: none;
+      gap: .45rem;
+      position: fixed;
+      right: max(12px, env(safe-area-inset-right));
+      top: max(12px, env(safe-area-inset-top));
+      transition: opacity .18s ease;
+      z-index: 2147483000;
+    }
+    body.game-ready #fullscreen-control { display: flex; }
+    .fullscreen-button {
+      align-items: center;
+      background: rgba(0, 42, 51, .48);
+      border: 1px solid rgba(218, 255, 255, .5);
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      height: 36px;
+      justify-content: center;
+      padding: 0;
+      transition: background .18s ease, transform .18s ease;
+      width: 36px;
+    }
+    .fullscreen-button:hover, .fullscreen-button:focus-visible { background: rgba(0, 78, 91, .88); transform: scale(1.06); }
+    .fullscreen-button svg { height: 19px; width: 19px; }
+    .fullscreen-label {
+      background: rgba(0, 32, 42, .5);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, .86);
+      font: 500 .76rem/1 Arial, sans-serif;
+      padding: .48rem .62rem;
+      white-space: nowrap;
+    }
+    #fullscreen-control.is-active .fullscreen-label { display: none; }
+    body.is-fullscreen #tyrano_base { box-shadow: none; }
     @media (orientation: portrait) and (max-width: 900px) and (pointer: coarse) {
       html:not(.portrait-mode-accepted) #orientation-notice { display: flex; }
     }
@@ -198,6 +241,14 @@
       <button id="continue-portrait" type="button">Продолжить в портретном</button>
     </div>
   </div>
+  <div id="fullscreen-control" aria-live="polite">
+    <span class="fullscreen-label" id="fullscreen-label">Полный экран</span>
+    <button class="fullscreen-button" id="fullscreen-button" type="button" aria-label="Перейти в полный экран" title="Полный экран">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 3H3v5M3 3l6 6M16 3h5v5M21 3l-6 6M3 16v5h5M3 21l6-6M21 16v5h-5M21 21l-6-6" />
+      </svg>
+    </button>
+  </div>
   <div id="tyrano_base" class="tyrano_base" style="overflow:hidden" unselectable="on" ondragstart="return false"></div>
   <div id="vchat_base" class="vchat_base" style="overflow:hidden" unselectable="on" ondragstart="return false"></div>
   <div class="remodal-bg"></div>
@@ -219,6 +270,9 @@
       var orientationDismiss = document.getElementById("continue-portrait");
       var tyranoBase = document.getElementById("tyrano_base");
       var documentRoot = document.documentElement;
+      var fullscreenControl = document.getElementById("fullscreen-control");
+      var fullscreenButton = document.getElementById("fullscreen-button");
+      var fullscreenLabel = document.getElementById("fullscreen-label");
       var current = 8;
       var finished = false;
       var titleReady = false;
@@ -345,6 +399,41 @@
         }, true);
       })();
 
+      (function installFullscreenControl() {
+        function fullscreenElement() {
+          return document.fullscreenElement || document.webkitFullscreenElement || null;
+        }
+        function updateFullscreenState() {
+          var active = Boolean(fullscreenElement());
+          document.body.classList.toggle("is-fullscreen", active);
+          fullscreenControl.classList.toggle("is-active", active);
+          fullscreenLabel.hidden = active;
+          fullscreenButton.setAttribute("aria-label", active ? "Выйти из полного экрана" : "Перейти в полный экран");
+          fullscreenButton.title = active ? "Выйти из полного экрана" : "Полный экран";
+        }
+        function toggleFullscreen() {
+          var active = fullscreenElement();
+          if (active) {
+            var exit = document.exitFullscreen || document.webkitExitFullscreen;
+            if (exit) exit.call(document);
+            return;
+          }
+          var root = document.documentElement;
+          var request = root.requestFullscreen || root.webkitRequestFullscreen;
+          if (!request) {
+            fullscreenLabel.textContent = "Недоступно в этом браузере";
+            window.setTimeout(function () { fullscreenLabel.textContent = "Полный экран"; }, 2200);
+            return;
+          }
+          var result = request.call(root);
+          if (result && result.catch) result.catch(function () {});
+        }
+        fullscreenButton.addEventListener("click", toggleFullscreen);
+        document.addEventListener("fullscreenchange", updateFullscreenState);
+        document.addEventListener("webkitfullscreenchange", updateFullscreenState);
+        updateFullscreenState();
+      })();
+
       function resetPortraitChoice() {
         if (window.matchMedia("(orientation: landscape)").matches) {
           document.documentElement.classList.remove("portrait-mode-accepted");
@@ -359,6 +448,7 @@
       function finish() {
         if (finished) return;
         finished = true;
+        document.body.classList.add("game-ready");
         setProgress(100, "Готово");
         window.setTimeout(function () { screen.classList.add("is-hidden"); }, 220);
       }
