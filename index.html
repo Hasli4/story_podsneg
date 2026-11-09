@@ -32,15 +32,62 @@
         height: 100dvh;
         width: 100vw;
       }
+      .loading-screen {
+        align-items: center;
+        background:
+          radial-gradient(circle at 50% 42%, rgba(255, 191, 77, .28), transparent 19rem),
+          linear-gradient(145deg, #002c36, #021419 68%);
+        color: #f7fbf8;
+        display: flex;
+        flex-direction: column;
+        inset: 0;
+        justify-content: center;
+        opacity: 1;
+        position: fixed;
+        text-align: center;
+        transition: opacity .45s ease, visibility .45s ease;
+        z-index: 2;
+      }
+      .loading-screen--hidden { opacity: 0; pointer-events: none; visibility: hidden; }
+      .loading-screen__snowdrop {
+        filter: drop-shadow(0 0 16px rgba(244, 255, 223, .5));
+        font: 4rem/1 Georgia, serif;
+      }
+      .loading-screen h1 { font: 400 clamp(2rem, 7vw, 3.8rem)/1 Georgia, serif; margin: .45rem 0; }
+      .loading-screen p { font: 400 1rem/1.5 Arial, sans-serif; margin: .25rem 1.5rem; max-width: 22rem; }
+      .loading-screen__help { display: none; margin-top: 1.25rem !important; }
+      .loading-screen__help a { color: #fff5c5; }
     </style>
   </head>
   <body>
+    <div class="loading-screen" id="loading-screen" role="status" aria-live="polite">
+      <div class="loading-screen__snowdrop" aria-hidden="true">❄</div>
+      <h1>Подснежник</h1>
+      <p>Зажигаем огонёк и готовим историю…</p>
+      <p class="loading-screen__help" id="loading-help">
+        Загрузка занимает больше обычного. <a href="./Podsneg_HTML/">Открыть игру напрямую</a>
+      </p>
+    </div>
     <iframe
+      id="game-frame"
       class="game-frame"
       src="./Podsneg_HTML/"
       title="Подснежник — визуальная новелла"
       allow="autoplay; fullscreen"
       allowfullscreen
     ></iframe>
+    <script>
+      (function () {
+        var splash = document.getElementById("loading-screen");
+        var help = document.getElementById("loading-help");
+
+        window.addEventListener("message", function (event) {
+          if (event.origin !== window.location.origin || !event.data || event.data.type !== "podsneg-title-ready") return;
+          splash.classList.add("loading-screen--hidden");
+        });
+
+        window.setTimeout(function () { help.style.display = "block"; }, 15000);
+      })();
+    </script>
   </body>
 </html>

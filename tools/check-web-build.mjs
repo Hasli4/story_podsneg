@@ -87,6 +87,14 @@ for (const [, attribute, resource] of novelPage.matchAll(/\b(src|href)=["']([^"'
 
 if (!rootPage.includes(`src="./${gameDirectory}/"`)) missing.push(`index.html game frame for ${gameDirectory}/`);
 if (!rootPage.includes("https://hasli4.github.io/story_podsneg/")) missing.push("canonical GitHub Pages URL metadata");
+if (!rootPage.includes("podsneg-title-ready")) missing.push("visible loading-state recovery");
+if (!readFileSync(resolve(root, gameDirectory, "data/scenario/title_screen.ks"), "utf8").includes("главный_экранъ.png")) {
+    missing.push("static title-screen fallback image");
+}
+const charaDefinition = readFileSync(resolve(root, gameDirectory, "data/scenario/system/chara_define.ks"), "utf8");
+if ((charaDefinition.match(/storage="\.\.\/\.\.\/tyrano\/images\/system\/transparent\.png"/g) || []).length !== 9) {
+    missing.push("lazy character bootstrap placeholders");
+}
 if (!novelPage.includes("try{") || !novelPage.includes("require('./tyrano/libs/jquery-3.6.0.min.js')")) {
     missing.push("standard Tyrano browser entry point");
 }
