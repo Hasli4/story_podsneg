@@ -65,7 +65,7 @@
   <style>
     #loading-screen {
       align-items: center;
-      background: linear-gradient(rgba(0, 25, 31, .24), rgba(0, 25, 31, .58)), url("./data/bgimage/главный_экранъ.png") center / cover;
+      background: linear-gradient(rgba(0, 25, 31, .24), rgba(0, 25, 31, .58)), url("./data/bgimage/главный_экранъ.webp") center / cover;
       color: #fff;
       display: flex;
       font-family: Arial, sans-serif;
@@ -94,6 +94,11 @@
     .loading-status { color: #d9f7f7; font-size: .85rem !important; min-height: 1.3em; }
     .loading-help { display: none; font-size: .85rem !important; margin-top: 1rem !important; }
     .loading-help button { background: transparent; border: 0; color: #fff0a9; cursor: pointer; font: inherit; padding: 0; text-decoration: underline; }
+    .loading-actions { display: none; gap: .7rem; justify-content: center; margin-top: 1.25rem; }
+    .loading-actions.is-visible { display: flex; }
+    .loading-actions button { border-radius: 999px; cursor: pointer; font: 600 .95rem/1.2 Arial, sans-serif; padding: .7rem 1.05rem; }
+    .loading-actions__sound { background: #fff0a9; border: 1px solid #fff0a9; color: #053640; }
+    .loading-actions__silent { background: transparent; border: 1px solid rgba(255, 255, 255, .65); color: #fff; }
   </style>
 </head>
 <body onselectstart="return false" oncontextmenu="return false" ontouchmove="event.preventDefault()">
@@ -104,6 +109,10 @@
       <p>Один день бойца начинается…</p>
       <div class="progress-track" aria-hidden="true"><div class="progress-value" id="progress-value"></div></div>
       <p class="loading-status" id="loading-status">Подготавливаем историю…</p>
+      <div class="loading-actions" id="loading-actions" aria-label="Выбор звука">
+        <button class="loading-actions__sound" type="button" id="enter-with-sound">Войти со звуком</button>
+        <button class="loading-actions__silent" type="button" id="enter-silently">Без музыки</button>
+      </div>
       <p class="loading-help" id="loading-help">Загрузка остановилась? <button type="button" id="reload-page">Обновить страницу</button></p>
     </div>
   </div>
@@ -122,8 +131,66 @@
       var value = document.getElementById("progress-value");
       var status = document.getElementById("loading-status");
       var help = document.getElementById("loading-help");
+      var actions = document.getElementById("loading-actions");
+      var soundButton = document.getElementById("enter-with-sound");
+      var silentButton = document.getElementById("enter-silently");
       var current = 8;
       var finished = false;
+      var titleReady = false;
+      var menuAudio = null;
+
+      function unlockTyranoAudio() {
+        if (!window.TYRANO || !window.TYRANO.kag || window.TYRANO.kag.tmp.ready_audio) return;
+        window.TYRANO.kag.readyAudio();
+        window.TYRANO.kag.tmp.ready_audio = true;
+      }
+
+      function getMenuAudio() {
+        if (menuAudio) return menuAudio;
+        menuAudio = new Audio("./data/bgm/Highway_Nocturne_-_National_Sweetheart.mp3");
+        menuAudio.loop = true;
+        menuAudio.preload = "auto";
+        menuAudio.volume = 0.62;
+        return menuAudio;
+      }
+
+      window.PodsnegAudio = {
+        startMenu: function () {
+          unlockTyranoAudio();
+          var audio = getMenuAudio();
+          var promise = audio.play();
+          if (promise) promise.catch(function () {});
+        },
+        resumeMenu: function () {
+          if (menuAudio && menuAudio.paused) this.startMenu();
+        },
+        stopMenu: function () {
+          if (!menuAudio) return;
+          menuAudio.pause();
+          menuAudio.currentTime = 0;
+        },
+        unlock: unlockTyranoAudio
+      };
+
+      (function installNonBlockingBgmTag() {
+        if (!window.tyrano || !window.tyrano.plugin || !window.tyrano.plugin.kag || !window.tyrano.plugin.kag.tag) return;
+        var tags = window.tyrano.plugin.kag.tag;
+        if (!tags.playbgm || tags.playbgm_fast) return;
+        tags.playbgm_fast = {
+          vital: tags.playbgm.vital,
+          pm: tags.playbgm.pm,
+          start: function (pm) {
+            if (this.kag.stat.play_bgm == 0) {
+              this.kag.ftag.nextOrder();
+              return;
+            }
+            var engineTag = this.kag.ftag.master_tag.playbgm;
+            engineTag.start(Object.assign({}, pm, { stop: "true" }));
+            this.kag.layer.showEventLayer();
+            this.kag.ftag.nextOrder();
+          }
+        };
+      })();
 
       function setProgress(percent, message) {
         current = Math.max(current, Math.min(percent, 100));
@@ -137,10 +204,25 @@
         window.setTimeout(function () { screen.classList.add("is-hidden"); }, 220);
       }
 
+      function showEntryChoice() {
+        if (titleReady) return;
+        titleReady = true;
+        setProgress(100, "Сцена готова");
+        actions.classList.add("is-visible");
+      }
+
       document.addEventListener("DOMContentLoaded", function () { setProgress(40, "Собираем сцену…"); });
       window.addEventListener("load", function () { setProgress(62, "Читаем сценарий…"); });
-      window.addEventListener("podsneg-title-ready", finish);
+      window.addEventListener("podsneg-title-ready", showEntryChoice);
       document.getElementById("reload-page").addEventListener("click", function () { window.location.reload(); });
+      soundButton.addEventListener("click", function () {
+        window.PodsnegAudio.startMenu();
+        finish();
+      });
+      silentButton.addEventListener("click", function () {
+        window.PodsnegAudio.unlock();
+        finish();
+      });
       window.setTimeout(function () { if (!finished) help.style.display = "block"; }, 15000);
       if (window.jQuery) {
         window.jQuery(document).ajaxStart(function () { setProgress(76, "Загружаем сценарий…"); });

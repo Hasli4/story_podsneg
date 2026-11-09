@@ -1,4 +1,4 @@
-[_tb_system_call storage=system/_obeduyutntnko.ks]
+; Тяжёлые изображения подгружаются при первом показе, а не одновременно с началом сцены.
 
 [cm  ]
 *обед
@@ -6,8 +6,8 @@
 [stopse  time="1000"  buf="0"  ]
 [stopbgm  time="1000"  ]
 [playse  volume="50"  time="1000"  buf="0"  storage="peremena1.mp3"  loop="true"  ]
-[playbgm  volume="50"  time="1000"  loop="true"  storage="Knife_Cuting_Food_On_Plate.mp3"  ]
-[bg  time="1000"  method="crossfade"  storage="столовая1.png"  ]
+[playbgm_fast  volume="50"  time="1000"  loop="true"  storage="Knife_Cuting_Food_On_Plate.mp3"  ]
+[bg  time="1000"  method="crossfade"  storage="столовая1.webp"  ]
 [tb_show_message_window  ]
 [mask_off  time="1000"  effect="fadeOut"  ]
 [tb_start_text mode=1 ]
@@ -23,14 +23,14 @@
 [jump  storage="gdelogika.ks"  target="*где_логика"  ]
 *столовая
 
-[bg  time="1000"  method="crossfade"  storage="столовая_светится_темнее.png"  ]
+[bg  time="1000"  method="crossfade"  storage="столовая_светится_темнее.webp"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=""][p]
 ``Герой сидит в столовой, слушая разговоры вокруг. [p]
 Он начинает замечать странные различия в свете, окружающем каждого человека, но не [r]понимает, с чем это связано[p]
 [_tb_end_text]
 
-[chara_show  name="Игорь"  time="1000"  wait="true"  storage="chara/6/светится.png"  width="391"  height="735"  left="850"  top="60"  reflect="false"  ]
+[chara_show  name="Игорь"  time="1000"  wait="true"  storage="chara/6/светится.webp"  width="391"  height="735"  left="850"  top="60"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Игорь"][p]
 Вижу, ты жив и здоров, да ещё и улыбаешься. Как тебе весь этот движ?[p]
@@ -40,10 +40,10 @@
 [chara_ptext name="Ирина"][p]
 [_tb_end_text]
 
-[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/светится.png"  width="393"  height="614"  left="76"  top="129"  reflect="false"  ]
+[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/светится.webp"  width="393"  height="614"  left="76"  top="129"  reflect="false"  ]
 [stopse  time="1000"  buf="0"  ]
 [stopbgm  time="1000"  ]
-[playbgm  volume="5"  time="1000"  loop="true"  storage="Tamalpais_-_National_Sweetheart.mp3"  ]
+[playbgm_fast  volume="5"  time="1000"  loop="true"  storage="Tamalpais_-_National_Sweetheart.mp3"  ]
 [tb_start_text mode=1 ]
 Что обсуждаете, ребята?[p]
 [chara_ptext name="Игорь"][p]
@@ -74,7 +74,7 @@
 [_tb_end_text]
 
 [chara_hide_all  time="1000"  wait="true"  ]
-[chara_show  name="Макс"  time="1000"  wait="true"  storage="chara/3/счастливый.png"  width="403"  height="664"  left="245"  top="110"  reflect="false"  ]
+[chara_show  name="Макс"  time="1000"  wait="true"  storage="chara/3/счастливый.webp"  width="403"  height="664"  left="245"  top="110"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Макс"][p]
 Новенький, ты хорош в спорте? Нам нужен человек для игры прямо сейчас![p]
@@ -85,8 +85,8 @@
 [chara_hide_all  time="1000"  wait="true"  ]
 [stopse  time="1000"  buf="0"  ]
 [stopbgm  time="1000"  ]
-[playbgm  volume="50"  time="1000"  loop="true"  storage="music.m4a"  ]
-[bg  time="1000"  method="crossfade"  storage="спорт.png"  ]
+[playbgm_fast  volume="50"  time="1000"  loop="true"  storage="music.m4a"  ]
+[bg  time="1000"  method="crossfade"  storage="спорт.webp"  ]
 [tb_start_text mode=1 ]
 Команда студентов и команда детей, лет 13-14. Кто же победит?[p]
 "Победа в кармане!" - думает новенький.[p]
@@ -95,8 +95,8 @@
 По крайней мере так бойцы говорят всем, кто спрашивает счет[p]
 [_tb_end_text]
 
-[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался_светится.png"  width="512"  height="679"  left="749"  top="142"  reflect="false"  ]
-[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/светится.png"  width="375"  height="587"  left="52"  top="163"  reflect="false"  ]
+[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался_светится.webp"  width="512"  height="679"  left="749"  top="142"  reflect="false"  ]
+[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/светится.webp"  width="375"  height="587"  left="52"  top="163"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Ирина"][p]
 Ты молодец, новичок! Везде участвуешь и показываешь себя с лучшей стороны — это [r]похвально. [p]

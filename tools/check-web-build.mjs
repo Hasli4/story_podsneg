@@ -47,7 +47,7 @@ for (const scenarioFile of scenarioFiles) {
         } else if (["bg", "bgmovie"].includes(tagName) && staticStorage) {
             checkAsset(`data/${tagName === "bg" ? "bgimage" : "video"}/${storage}`, displayName);
             referencesChecked += 1;
-        } else if (["playbgm", "stopbgm"].includes(tagName) && staticStorage) {
+        } else if (["playbgm", "playbgm_fast", "stopbgm"].includes(tagName) && staticStorage) {
             checkAsset(`data/bgm/${storage}`, displayName);
             referencesChecked += 1;
         } else if (["playse", "stopse"].includes(tagName) && staticStorage) {
@@ -85,7 +85,9 @@ for (const [, attribute, resource] of novelPage.matchAll(/\b(src|href)=["']([^"'
 if (!rootPage.includes("https://hasli4.github.io/story_podsneg/")) missing.push("canonical GitHub Pages URL metadata");
 if (!rootPage.includes("progress-value")) missing.push("visible loading progress bar");
 if (!rootPage.includes("podsneg-title-ready")) missing.push("loading-to-title handoff");
-if (!readFileSync(resolve(root, "data/scenario/title_screen.ks"), "utf8").includes("главный_экранъ.png")) {
+if (!rootPage.includes("enter-with-sound") || !rootPage.includes("PodsnegAudio")) missing.push("browser-safe title music control");
+if (!rootPage.includes("playbgm_fast")) missing.push("non-blocking story music tag");
+if (!readFileSync(resolve(root, "data/scenario/title_screen.ks"), "utf8").includes("главный_экранъ.webp")) {
     missing.push("static title-screen fallback image");
 }
 const charaDefinition = readFileSync(resolve(root, "data/scenario/system/chara_define.ks"), "utf8");

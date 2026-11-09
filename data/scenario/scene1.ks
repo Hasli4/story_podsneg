@@ -1,10 +1,10 @@
-[_tb_system_call storage=system/_scene1.ks]
+; Тяжёлые изображения подгружаются при первом показе, а не одновременно с началом сцены.
 
 [cm  ]
 *начало
 
-[playbgm  volume="200"  time="1000"  loop="true"  storage="Factory_Morning_Start_Up.mp3"  ]
-[bg  storage="начало.png"  time="1000"  ]
+[playbgm_fast  volume="200"  time="1000"  loop="true"  storage="Factory_Morning_Start_Up.mp3"  ]
+[bg  storage="начало.webp"  time="1000"  ]
 [tb_show_message_window  ]
 [font  size="28"  color="0xffffff"  face="Arial"  italic="true"  bold="undefined"  ]
 [tb_start_text mode=1 ]
@@ -20,8 +20,8 @@
 Где я?.. Почему так много шума?.. Который час?..[p]
 [_tb_end_text]
 
-[chara_show  name="Николай"  time="1000"  wait="true"  storage="chara/9/черный.png"  width="463"  height="614"  left="133"  top="171"  reflect="false"  ]
-[chara_show  name="Степан"  time="1000"  wait="false"  storage="chara/1/черный.png"  width="315"  height="497"  left="-10"  top="240"  reflect="false"  ]
+[chara_show  name="Николай"  time="1000"  wait="true"  storage="chara/9/черный.webp"  width="463"  height="614"  left="133"  top="171"  reflect="false"  ]
+[chara_show  name="Степан"  time="1000"  wait="false"  storage="chara/1/черный.webp"  width="315"  height="497"  left="-10"  top="240"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="???"][p]
 Сегодня насыщенный день и у нас не будет свободного времени на посторонние дела. [p]
@@ -29,7 +29,7 @@
 
 [_tb_end_text]
 
-[chara_show  name="Макс"  time="1500"  wait="true"  storage="chara/3/черный.png"  width="336"  height="550"  left="953"  top="202"  reflect="false"  ]
+[chara_show  name="Макс"  time="1500"  wait="true"  storage="chara/3/черный.webp"  width="336"  height="550"  left="953"  top="202"  reflect="false"  ]
 [chara_move  name="Макс"  anim="true"  time="1000"  effect="linear"  wait="true"  left="485"  top="202"  width="336"  height="550"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="??"][p]
@@ -42,9 +42,9 @@
 
 [_tb_end_text]
 
-[playbgm  volume="50"  time="1000"  loop="true"  storage="peremena1.mp3"  fadein="true"  ]
+[playbgm_fast  volume="50"  time="1000"  loop="true"  storage="peremena1.mp3"  fadein="true"  ]
 [chara_hide_all  time="1000"  wait="true"  ]
-[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/здарова.png"  width="491"  height="652"  left="11"  top="130"  reflect="false"  ]
+[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/здарова.webp"  width="491"  height="652"  left="11"  top="130"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Ирина"][p]
 О, новичок, ты только что проснулся? Доброе утро! Хорошо, что именно я тебя заметила. [p]
@@ -65,12 +65,12 @@
 [_tb_end_text]
 
 [stopse  time="1000"  buf="0"  ]
-[playbgm  volume="100"  time="1000"  loop="true"  storage="Knife_Cuting_Food_On_Plate.mp3"  ]
-[bg  time="1000"  method="fadeIn"  storage="столовая_светится_темнее.png"  ]
-[playbgm  volume="35"  time="1000"  loop="true"  storage="peremena1.mp3"  fadein="true"  ]
+[playbgm_fast  volume="100"  time="1000"  loop="true"  storage="Knife_Cuting_Food_On_Plate.mp3"  ]
+[bg  time="1000"  method="fadeIn"  storage="столовая_светится_темнее.webp"  ]
+[playbgm_fast  volume="35"  time="1000"  loop="true"  storage="peremena1.mp3"  fadein="true"  ]
 [resetfont  ]
 [font  size="28"  color="0xffffff"  face="Georgia"  ]
-[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/светится.png"  width="450"  height="700"  left="82"  top="46"  reflect="false"  ]
+[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/светится.webp"  width="450"  height="700"  left="82"  top="46"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Ирина"][p]
 Идём, там как раз есть свободные места. Не бойся, никто не кусается и еду не отбирает. [p]
@@ -79,14 +79,14 @@
 
 [_tb_end_text]
 
-[chara_mod  name="Ирина"  time="600"  cross="true"  storage="chara/2/темная_светится.png"  ]
+[chara_mod  name="Ирина"  time="600"  cross="true"  storage="chara/2/темная_светится.webp"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=""][p]
 Кажется, она светится... и другие тоже. Наверное, я не проснулся...[p]
 [_tb_end_text]
 
-[chara_mod  name="Ирина"  time="600"  cross="true"  storage="chara/2/светится.png"  ]
-[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался_светится.png"  width="687"  height="909"  left="692"  top="50"  reflect="false"  ]
+[chara_mod  name="Ирина"  time="600"  cross="true"  storage="chara/2/светится.webp"  ]
+[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался_светится.webp"  width="687"  height="909"  left="692"  top="50"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Даниил"][p]
 О, Ирина, ты уже поймала нашего новичка за что-то?[p]
@@ -95,10 +95,10 @@
 
 [mask  time="100"  effect="fadeIn"  color="0x000000"  ]
 [chara_hide  name="Ирина"  time="100"  wait="true"  pos_mode="true"  ]
-[chara_show  name="Ирина"  time="10"  wait="true"  storage="chara/2/ня.png"  width="514"  height="681"  left="1"  top="32"  reflect="false"  ]
-[bg  time="10"  method="crossfade"  storage="столовая_темнее.png"  ]
+[chara_show  name="Ирина"  time="10"  wait="true"  storage="chara/2/ня.webp"  width="514"  height="681"  left="1"  top="32"  reflect="false"  ]
+[bg  time="10"  method="crossfade"  storage="столовая_темнее.webp"  ]
 [chara_hide  name="Даниил"  time="10"  wait="true"  pos_mode="true"  ]
-[chara_show  name="Даниил"  time="100"  wait="true"  storage="chara/5/задумался.png"  width="589"  height="781"  left="718"  top="65"  reflect="false"  ]
+[chara_show  name="Даниил"  time="100"  wait="true"  storage="chara/5/задумался.webp"  width="589"  height="781"  left="718"  top="65"  reflect="false"  ]
 [chara_move  name="Ирина"  anim="false"  time="10"  effect="linear"  wait="true"  left="34"  top="67"  width="514"  height="681"  ]
 [mask_off  time="100"  effect="fadeOut"  ]
 [tb_start_text mode=1 ]
@@ -114,9 +114,9 @@
 
 [mask  time="5"  effect="zoomIn"  color="0x000000"  ]
 [chara_hide  name="Ирина"  time="5"  wait="true"  pos_mode="true"  ]
-[chara_show  name="Ирина"  time="5"  wait="false"  storage="chara/2/черная.png"  width="379"  height="795"  left="41"  top="82"  reflect="false"  ]
+[chara_show  name="Ирина"  time="5"  wait="false"  storage="chara/2/черная.webp"  width="379"  height="795"  left="41"  top="82"  reflect="false"  ]
 [chara_hide  name="Даниил"  time="5"  wait="true"  pos_mode="true"  ]
-[chara_show  name="Даниил"  time="5"  wait="false"  storage="chara/5/черный.png"  width="534"  height="709"  left="783"  top="88"  reflect="false"  ]
+[chara_show  name="Даниил"  time="5"  wait="false"  storage="chara/5/черный.webp"  width="534"  height="709"  left="783"  top="88"  reflect="false"  ]
 [chara_move  name="Даниил"  anim="false"  time="5"  effect="linear"  wait="true"  left="784"  top="102"  width="534"  height="709"  ]
 [chara_move  name="Ирина"  anim="false"  time="5"  effect="linear"  wait="true"  left="67"  top="94"  width="379"  height="795"  ]
 [tb_hide_message_window  ]
@@ -165,12 +165,12 @@
 [chara_ptext name="Степан"][p]
 [_tb_end_text]
 
-[chara_show  name="Степан"  time="1000"  wait="true"  storage="chara/1/серьезный_светится.png"  width="349"  height="561"  left="88"  top="181"  reflect="false"  ]
+[chara_show  name="Степан"  time="1000"  wait="true"  storage="chara/1/серьезный_светится.webp"  width="349"  height="561"  left="88"  top="181"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Николай"][p]
 [_tb_end_text]
 
-[chara_show  name="Николай"  time="1000"  wait="true"  storage="chara/9/светится.png"  width="374"  height="597"  left="322"  top="151"  reflect="false"  ]
+[chara_show  name="Николай"  time="1000"  wait="true"  storage="chara/9/светится.webp"  width="374"  height="597"  left="322"  top="151"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Николай"][p]
 У нас много дел на сегодня, и самое главное — чтобы вы не терялись. [p]
@@ -190,7 +190,7 @@
 Даня и Ирина всё вам расскажут.[p]
 [_tb_end_text]
 
-[chara_show  name="Женя"  time="1000"  wait="true"  storage="chara/8/довольный_вдаль_смотрит.png"  width="529"  height="701"  left="180"  top="100"  reflect="false"  ]
+[chara_show  name="Женя"  time="1000"  wait="true"  storage="chara/8/довольный_вдаль_смотрит.webp"  width="529"  height="701"  left="180"  top="100"  reflect="false"  ]
 [chara_hide  name="Степан"  time="1000"  wait="false"  pos_mode="true"  ]
 [chara_hide  name="Николай"  time="1000"  wait="false"  pos_mode="true"  ]
 [tb_start_text mode=1 ]
@@ -213,7 +213,7 @@
 [chara_ptext name="Игорь"][p]
 [_tb_end_text]
 
-[chara_show  name="Игорь"  time="1000"  wait="true"  storage="chara/undefined/светится.png"  width="391"  height="735"  left="864"  top="17"  reflect="false"  ]
+[chara_show  name="Игорь"  time="1000"  wait="true"  storage="chara/undefined/светится.webp"  width="391"  height="735"  left="864"  top="17"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Игорь"][p]
 Это был тест на внимательность, а теперь проверим память.[p]
@@ -228,7 +228,7 @@
 Этого времени достаточно, чтобы подготовить зал к мероприятию для населения,[r] а вечером мы все встретимся на концерте.[p]
 [_tb_end_text]
 
-[chara_show  name="Женя"  time="1000"  wait="true"  storage="chara/8/сваетится.png"  width="405"  height="690"  left="96"  top="98"  reflect="false"  ]
+[chara_show  name="Женя"  time="1000"  wait="true"  storage="chara/8/сваетится.webp"  width="405"  height="690"  left="96"  top="98"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Женя"][p]
 Всё запомнил?[p]

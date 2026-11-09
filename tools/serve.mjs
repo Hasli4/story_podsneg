@@ -21,6 +21,7 @@ const types = {
     ".ogg": "audio/ogg",
     ".png": "image/png",
     ".svg": "image/svg+xml",
+    ".webp": "image/webp",
     ".webm": "video/webm",
 };
 

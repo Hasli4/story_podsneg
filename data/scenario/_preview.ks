@@ -1,13 +1,13 @@
-[_tb_system_call storage=system/_preview.ks ]
+; Тяжёлые изображения подгружаются при первом показе, а не одновременно с началом сцены.
 
 [mask time=10]
 [mask_off time=10]
 [cm  ]
 *начало
 
-[playbgm  volume="125"  time="1000"  loop="true"  storage="Children_Group_Ambience.mp3"  ]
+[playbgm_fast  volume="125"  time="1000"  loop="true"  storage="Children_Group_Ambience.mp3"  ]
 [playse  volume="15"  time="1000"  buf="0"  storage="7th_Life_-_Adam_MacDougall.mp3"  loop="true"  ]
-[bg  time="1000"  method="crossfade"  storage="линейка.png"  ]
+[bg  time="1000"  method="crossfade"  storage="линейка.webp"  ]
 [mask_off  time="1000"  effect="fadeOut"  ]
 [tb_show_message_window  ]
 [tb_start_text mode=1 ]
@@ -15,7 +15,7 @@
 Куда я попал..[p]
 [_tb_end_text]
 
-[chara_show  name="Маша"  time="1000"  wait="true"  storage="chara/4/светится.png"  width="326"  height="631"  left="106"  top="126"  reflect="false"  ]
+[chara_show  name="Маша"  time="1000"  wait="true"  storage="chara/4/светится.webp"  width="326"  height="631"  left="106"  top="126"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Маша"][p]
 Главное не пропусти, когда наш командир и комиссар будут говорить...[p]
@@ -27,7 +27,7 @@
 [chara_ptext name="Николай"][p]
 [_tb_end_text]
 
-[chara_show  name="Николай"  time="200"  wait="true"  storage="chara/9/улыбка.png"  width="557"  height="740"  left="769"  top="86"  reflect="false"  ]
+[chara_show  name="Николай"  time="200"  wait="true"  storage="chara/9/улыбка.webp"  width="557"  height="740"  left="769"  top="86"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Николай"][p]
 Дорогие учащиеся школы! Вас приветствует Отряд Десанта Прикамья...[p]
@@ -39,12 +39,12 @@
 [s  ]
 *кринжа_навалил
 
-[chara_mod  name="Николай"  time="100"  cross="true"  storage="chara/9/злой.png"  ]
-[chara_show  name="Степан"  time="100"  wait="true"  storage="chara/1/злой.png"  width="434"  height="697"  left="151"  top="112"  reflect="false"  ]
-[chara_show  name="Ирина"  time="100"  wait="true"  storage="chara/2/злая.png"  width="459"  height="608"  left="-44"  top="137"  reflect="false"  ]
-[chara_show  name="Макс"  time="100"  wait="true"  storage="chara/3/злой.png"  width="401"  height="657"  left="433"  top="103"  reflect="false"  ]
-[chara_show  name="Маша"  time="100"  wait="true"  storage="chara/4/злая.png"  width="382"  height="579"  left="618"  top="190"  reflect="false"  ]
-[chara_show  name="Даниил"  time="100"  wait="true"  storage="chara/5/злой.png"  width="541"  height="717"  left="205"  top="86"  reflect="false"  ]
+[chara_mod  name="Николай"  time="100"  cross="true"  storage="chara/9/злой.webp"  ]
+[chara_show  name="Степан"  time="100"  wait="true"  storage="chara/1/злой.webp"  width="434"  height="697"  left="151"  top="112"  reflect="false"  ]
+[chara_show  name="Ирина"  time="100"  wait="true"  storage="chara/2/злая.webp"  width="459"  height="608"  left="-44"  top="137"  reflect="false"  ]
+[chara_show  name="Макс"  time="100"  wait="true"  storage="chara/3/злой.webp"  width="401"  height="657"  left="433"  top="103"  reflect="false"  ]
+[chara_show  name="Маша"  time="100"  wait="true"  storage="chara/4/злая.webp"  width="382"  height="579"  left="618"  top="190"  reflect="false"  ]
+[chara_show  name="Даниил"  time="100"  wait="true"  storage="chara/5/злой.webp"  width="541"  height="717"  left="205"  top="86"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=" "][p]
 ЧТО ТЫ СКАЗАЛ?![p]
@@ -55,7 +55,7 @@
 [jump  storage="lineyka.ks"  target="*выбор_конц"  ]
 *плюс_вайб
 
-[chara_show  name="Степан"  time="1000"  wait="true"  storage="chara/1/улыбка_широко.png"  width="419"  height="674"  left="531"  top="104"  reflect="false"  ]
+[chara_show  name="Степан"  time="1000"  wait="true"  storage="chara/1/улыбка_широко.webp"  width="419"  height="674"  left="531"  top="104"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name="Степан"][p]
 О-о-о, одобряю. Плюс вайб![p]
@@ -65,8 +65,8 @@
 *выбор_конц
 
 [chara_hide_all  time="1000"  wait="true"  ]
-[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался.png"  width="599"  height="795"  left="730"  top="88"  reflect="false"  ]
-[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/обычная.png"  width="514"  height="681"  left="-36"  top="150"  reflect="false"  ]
+[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался.webp"  width="599"  height="795"  left="730"  top="88"  reflect="false"  ]
+[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/обычная.webp"  width="514"  height="681"  left="-36"  top="150"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=" "][p]
 Как же учителям сложно успокоить детей, а ведь это только утро.[p]
@@ -75,7 +75,7 @@
 Что ж, как провести ближайший час в этой школе?[p]
 [_tb_end_text]
 
-[bg  time="1000"  method="crossfade"  storage="линейка_темно.png"  ]
+[bg  time="1000"  method="crossfade"  storage="линейка_темно.webp"  ]
 [tb_hide_message_window  ]
 [glink  color="btn_18_green"  storage="lineyka.ks"  size="20"  target="*мк"  text="<b>&nbsp;Мастер-класс&nbsp;</b>&nbsp;<br>&nbsp;<br>&nbsp;Вы&nbsp;взаимодействуете&nbsp;с&nbsp;детьми:&nbsp;<br>&nbsp;помогаете&nbsp;им&nbsp;создавать&nbsp;поделки,&nbsp;<br>делитесь&nbsp;знаниями&nbsp;<br>и&nbsp;вдохновляете&nbsp;на&nbsp;творчество.&nbsp;<br>Комната&nbsp;наполнена&nbsp;шумом&nbsp;и&nbsp;смехом,&nbsp;<br>но&nbsp;все&nbsp;увлечены&nbsp;своими&nbsp;проектами.&nbsp;<br>В&nbsp;этот&nbsp;момент&nbsp;герой&nbsp;получает&nbsp;уникальную&nbsp;возможность&nbsp;&mdash;&nbsp;<br>стать&nbsp;участником&nbsp;специального&nbsp;мастер-класса&nbsp;<br>по&nbsp;созданию&nbsp;секретного&nbsp;предмета."  x="27"  y="104"  width="573"  height="282"  _clickable_img=""  ]
 [glink  color="btn_18_green"  storage="lineyka.ks"  size="20"  target="*шефка"  text="<b>&nbsp;Шефская&nbsp;помощь&nbsp;</b>&nbsp;<br>&nbsp;<br>Вы&nbsp;можете&nbsp;принять&nbsp;участие&nbsp;в&nbsp;реальной&nbsp;помощи&nbsp;<br>для&nbsp;местного&nbsp;населения.&nbsp;Решите,&nbsp;как&nbsp;лучше&nbsp;поступить:<br>&nbsp;разделить&nbsp;работу&nbsp;с&nbsp;напарником&nbsp;или&nbsp;взять&nbsp;всё&nbsp;на&nbsp;себя,<br>&nbsp;проявив&nbsp;свою&nbsp;инициативу.&nbsp;Также&nbsp;перед&nbsp;Вами&nbsp;стоит&nbsp;выбор:&nbsp;<br>поговорить&nbsp;с&nbsp;пожилыми&nbsp;людьми,&nbsp;выслушать&nbsp;их&nbsp;истории&nbsp;и&nbsp;<br>&nbsp;&nbsp;повысить&nbsp;&laquo;уровень&nbsp;благодарности&raquo;,&nbsp;или&nbsp;сосредоточиться&nbsp;<br>&nbsp;на&nbsp;выполнении&nbsp;задачи,&nbsp;быстро&nbsp;справляясь&nbsp;с&nbsp;работой,&nbsp;но&nbsp;<br>упуская&nbsp;возможность&nbsp;услышать&nbsp;их&nbsp;воспоминания&nbsp;и&nbsp;мудрость."  x="634"  y="112"  width="614"  height="277"  _clickable_img=""  ]
@@ -84,10 +84,10 @@
 
 [stopbgm  time="1000"  ]
 [stopse  time="1000"  buf="0"  ]
-[playbgm  volume="30"  time="1000"  loop="true"  storage="Brand_New_Baby_Girl_-_Jeremy_Korpas.mp3"  fadein="true"  ]
+[playbgm_fast  volume="30"  time="1000"  loop="true"  storage="Brand_New_Baby_Girl_-_Jeremy_Korpas.mp3"  fadein="true"  ]
 [tb_show_message_window  ]
-[bg  time="1000"  method="crossfade"  storage="линейка.png"  ]
-[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался.png"  width="617"  height="819"  left="-35"  top="105"  reflect="false"  ]
+[bg  time="1000"  method="crossfade"  storage="линейка.webp"  ]
+[chara_show  name="Даниил"  time="1000"  wait="true"  storage="chara/5/задумался.webp"  width="617"  height="819"  left="-35"  top="105"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=""][p]
 Даня, я иду на шефскую помощь![p]
@@ -98,14 +98,14 @@
 [_tb_end_text]
 
 [chara_hide_all  time="1000"  wait="true"  ]
-[bg  time="1000"  method="crossfade"  storage="шефка2.png"  ]
+[bg  time="1000"  method="crossfade"  storage="шефка2.webp"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=""][p]
 Новичок и Даня отправляются на помощь населению. [p]
 Они успевают многое: почистить снег, проконтроллировать здоровье бабушек и дедушек[p]
 [_tb_end_text]
 
-[bg  time="1000"  method="crossfade"  storage="шефка.png"  ]
+[bg  time="1000"  method="crossfade"  storage="шефка.webp"  ]
 [tb_start_text mode=1 ]
 Не обошлось и без веселых ситуаций.[p]
 Если очень увлечься помощью людям, можно сломать и лопату, и топор, и зуб...[p]
@@ -120,9 +120,9 @@
 
 [stopbgm  time="1000"  ]
 [stopse  time="1000"  buf="0"  ]
-[playbgm  volume="50"  time="1000"  loop="true"  storage="Brand_New_Baby_Girl_-_Jeremy_Korpas.mp3"  ]
+[playbgm_fast  volume="50"  time="1000"  loop="true"  storage="Brand_New_Baby_Girl_-_Jeremy_Korpas.mp3"  ]
 [tb_show_message_window  ]
-[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/улыбка.png"  width="565"  height="749"  left="8"  top="69"  reflect="false"  ]
+[chara_show  name="Ирина"  time="1000"  wait="true"  storage="chara/2/улыбка.webp"  width="565"  height="749"  left="8"  top="69"  reflect="false"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=""][p]
 Ирина, я иду на мастер-класс![p]
@@ -133,14 +133,14 @@
 [_tb_end_text]
 
 [chara_hide_all  time="500"  wait="true"  ]
-[bg  time="1000"  method="crossfade"  storage="мк1.png"  ]
+[bg  time="1000"  method="crossfade"  storage="мк1.webp"  ]
 [tb_start_text mode=1 ]
 [chara_ptext name=""][p]
 Новичок и Ирина проводят детям крутой мастер-класс. [p]
 Учат их вязать узлы и выживать в дикой природе[p]
 [_tb_end_text]
 
-[bg  time="1000"  method="crossfade"  storage="мк2.png"  ]
+[bg  time="1000"  method="crossfade"  storage="мк2.webp"  ]
 [tb_start_text mode=1 ]
 Рисуют аквагрим...[p]
 [_tb_end_text]
