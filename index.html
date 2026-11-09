@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content" />
   <meta name="description" content="Один день среди бойцов отряда: утренний свет, странное сияние и огонёк, который помогает понять, зачем ты здесь." />
   <meta name="theme-color" content="#003b45" />
   <meta property="og:type" content="website" />
@@ -63,6 +63,25 @@
   <script src="./tyrano/libs/jsQR.js"></script>
   <script src="./tyrano/libs/lz-string.min.js"></script>
   <style>
+    html {
+      background: #031d29;
+      height: 100%;
+      overscroll-behavior: none;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% -14%, rgba(104, 210, 208, .47), transparent 54%),
+        radial-gradient(circle at 12% 79%, rgba(95, 180, 192, .3), transparent 32%),
+        radial-gradient(circle at 88% 82%, rgba(255, 225, 153, .18), transparent 30%),
+        linear-gradient(135deg, #063b4a, #0a6370 52%, #043743);
+      min-height: 100%;
+      overscroll-behavior: none;
+      touch-action: manipulation;
+    }
+    #tyrano_base {
+      box-shadow: 0 0 0 1px rgba(202, 251, 250, .22), 0 18px 55px rgba(0, 0, 0, .46);
+      touch-action: manipulation;
+    }
     #loading-screen {
       align-items: center;
       background: linear-gradient(rgba(0, 25, 31, .24), rgba(0, 25, 31, .58)), url("./data/bgimage/главный_экранъ.webp") center / cover;
@@ -71,9 +90,15 @@
       font-family: Arial, sans-serif;
       inset: 0;
       justify-content: center;
+      bottom: auto;
       position: fixed;
+      right: auto;
       text-align: center;
       transition: opacity .38s ease, visibility .38s ease;
+      height: var(--app-viewport-height, 100vh);
+      left: 0;
+      top: 0;
+      width: var(--app-viewport-width, 100vw);
       z-index: 2147483647;
     }
     #loading-screen.is-hidden { opacity: 0; pointer-events: none; visibility: hidden; }
@@ -99,6 +124,55 @@
     .loading-actions button { border-radius: 999px; cursor: pointer; font: 600 .95rem/1.2 Arial, sans-serif; padding: .7rem 1.05rem; }
     .loading-actions__sound { background: #fff0a9; border: 1px solid #fff0a9; color: #053640; }
     .loading-actions__silent { background: transparent; border: 1px solid rgba(255, 255, 255, .65); color: #fff; }
+    #orientation-notice {
+      align-items: center;
+      background: rgba(0, 24, 34, .94);
+      color: #fff;
+      display: none;
+      font-family: Arial, sans-serif;
+      inset: 0;
+      justify-content: center;
+      padding: 24px;
+      bottom: auto;
+      position: fixed;
+      right: auto;
+      text-align: center;
+      height: var(--app-viewport-height, 100vh);
+      left: 0;
+      top: 0;
+      width: var(--app-viewport-width, 100vw);
+      z-index: 2147483646;
+    }
+    .orientation-card {
+      background: linear-gradient(155deg, rgba(4, 86, 96, .94), rgba(0, 39, 51, .98));
+      border: 1px solid rgba(218, 255, 255, .58);
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .42);
+      box-sizing: border-box;
+      max-width: 340px;
+      padding: 27px 24px 23px;
+    }
+    .orientation-card__icon { color: #fff0a9; font-size: 3rem; line-height: 1; margin-bottom: .7rem; }
+    .orientation-card h2 { font: 400 1.55rem/1.2 Georgia, serif; margin: 0 0 .7rem; }
+    .orientation-card p { font-size: .95rem; line-height: 1.45; margin: 0; }
+    .orientation-card button {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, .68);
+      border-radius: 999px;
+      color: #fff;
+      cursor: pointer;
+      font: 600 .84rem/1.2 Arial, sans-serif;
+      margin-top: 1.25rem;
+      padding: .62rem .9rem;
+    }
+    @media (orientation: portrait) and (max-width: 900px) and (pointer: coarse) {
+      html:not(.portrait-mode-accepted) #orientation-notice { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .loading-card { padding: 25px 22px 23px; }
+      .loading-actions { flex-direction: column; }
+      .loading-actions button { width: 100%; }
+    }
   </style>
 </head>
 <body onselectstart="return false" oncontextmenu="return false" ontouchmove="event.preventDefault()">
@@ -114,6 +188,14 @@
         <button class="loading-actions__silent" type="button" id="enter-silently">Без музыки</button>
       </div>
       <p class="loading-help" id="loading-help">Загрузка остановилась? <button type="button" id="reload-page">Обновить страницу</button></p>
+    </div>
+  </div>
+  <div id="orientation-notice" role="dialog" aria-labelledby="orientation-title" aria-describedby="orientation-description">
+    <div class="orientation-card">
+      <div class="orientation-card__icon" aria-hidden="true">↻</div>
+      <h2 id="orientation-title">Поверните телефон</h2>
+      <p id="orientation-description">Новелла задумана для горизонтального экрана — так иллюстрации, текст и кнопки остаются удобными.</p>
+      <button id="continue-portrait" type="button">Продолжить в портретном</button>
     </div>
   </div>
   <div id="tyrano_base" class="tyrano_base" style="overflow:hidden" unselectable="on" ondragstart="return false"></div>
@@ -134,10 +216,59 @@
       var actions = document.getElementById("loading-actions");
       var soundButton = document.getElementById("enter-with-sound");
       var silentButton = document.getElementById("enter-silently");
+      var orientationDismiss = document.getElementById("continue-portrait");
+      var tyranoBase = document.getElementById("tyrano_base");
+      var documentRoot = document.documentElement;
       var current = 8;
       var finished = false;
       var titleReady = false;
       var menuAudio = null;
+
+      function usesTouchViewport() {
+        return Boolean(window.visualViewport) && (window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0);
+      }
+
+      function syncVisualViewport() {
+        if (!usesTouchViewport()) return;
+        documentRoot.style.setProperty("--app-viewport-width", Math.round(window.visualViewport.width) + "px");
+        documentRoot.style.setProperty("--app-viewport-height", Math.round(window.visualViewport.height) + "px");
+      }
+
+      (function adaptTyranoToMobileViewport() {
+        if (!usesTouchViewport() || !window.jQuery) return;
+        syncVisualViewport();
+        window.jQuery.getViewPort = function () {
+          return {
+            width: window.visualViewport.width,
+            height: window.visualViewport.height
+          };
+        };
+
+        function refitMobileCanvas(attempt) {
+          if (!usesTouchViewport()) return;
+          syncVisualViewport();
+          if (!window.TYRANO || !window.TYRANO.kag || !window.TYRANO.kag.config || !window.TYRANO.base) {
+            if (attempt < 40) window.setTimeout(function () { refitMobileCanvas(attempt + 1); }, 50);
+            return;
+          }
+          var config = window.TYRANO.kag.config;
+          var width = parseInt(config.scWidth, 10);
+          var height = parseInt(config.scHeight, 10);
+          var viewport = window.visualViewport;
+          var scale = Math.min(viewport.width / width, viewport.height / height);
+          config.ScreenCentering = "false";
+          window.TYRANO.base.fitBaseSize(width, height);
+          window.setTimeout(function () {
+            tyranoBase.style.marginLeft = Math.max(0, (viewport.width - width * scale) / 2) + "px";
+            tyranoBase.style.marginTop = Math.max(0, (viewport.height - height * scale) / 2) + "px";
+            window.scrollTo(0, 0);
+          }, 120);
+        }
+
+        window.visualViewport.addEventListener("resize", function () { refitMobileCanvas(0); });
+        window.addEventListener("orientationchange", function () { refitMobileCanvas(0); });
+        refitMobileCanvas(0);
+      })();
 
       function unlockTyranoAudio() {
         if (!window.TYRANO || !window.TYRANO.kag || window.TYRANO.kag.tmp.ready_audio) return;
@@ -192,6 +323,34 @@
         };
       })();
 
+      (function protectGameInput() {
+        var lastGameClick = 0;
+        var minimumInterval = 260;
+        tyranoBase.addEventListener("click", function (event) {
+          var target = event.target;
+          if (!target.closest || !target.closest(".layer_event_click, .event-setting-element")) return;
+          var now = performance.now();
+          if (now - lastGameClick < minimumInterval) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            return;
+          }
+          lastGameClick = now;
+        }, true);
+        tyranoBase.addEventListener("dblclick", function (event) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          event.stopPropagation();
+        }, true);
+      })();
+
+      function resetPortraitChoice() {
+        if (window.matchMedia("(orientation: landscape)").matches) {
+          document.documentElement.classList.remove("portrait-mode-accepted");
+        }
+      }
+
       function setProgress(percent, message) {
         current = Math.max(current, Math.min(percent, 100));
         value.style.width = current + "%";
@@ -223,6 +382,11 @@
         window.PodsnegAudio.unlock();
         finish();
       });
+      orientationDismiss.addEventListener("click", function () {
+        document.documentElement.classList.add("portrait-mode-accepted");
+      });
+      window.addEventListener("orientationchange", resetPortraitChoice);
+      window.addEventListener("resize", resetPortraitChoice);
       window.setTimeout(function () { if (!finished) help.style.display = "block"; }, 15000);
       if (window.jQuery) {
         window.jQuery(document).ajaxStart(function () { setProgress(76, "Загружаем сценарий…"); });

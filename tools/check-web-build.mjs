@@ -87,6 +87,8 @@ if (!rootPage.includes("progress-value")) missing.push("visible loading progress
 if (!rootPage.includes("podsneg-title-ready")) missing.push("loading-to-title handoff");
 if (!rootPage.includes("enter-with-sound") || !rootPage.includes("PodsnegAudio")) missing.push("browser-safe title music control");
 if (!rootPage.includes("playbgm_fast")) missing.push("non-blocking story music tag");
+if (!rootPage.includes("orientation-notice") || !rootPage.includes("protectGameInput")) missing.push("mobile orientation and rapid-tap safeguards");
+if (!rootPage.includes("maximum-scale=1") || !rootPage.includes("syncVisualViewport")) missing.push("mobile viewport adaptation");
 if (!readFileSync(resolve(root, "data/scenario/title_screen.ks"), "utf8").includes("главный_экранъ.webp")) {
     missing.push("static title-screen fallback image");
 }
